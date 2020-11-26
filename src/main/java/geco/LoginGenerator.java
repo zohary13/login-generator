@@ -1,6 +1,7 @@
 package geco;
 
 import java.text.Normalizer;
+import java.util.Collections;
 import java.util.regex.Pattern;
 
 /**
@@ -38,7 +39,9 @@ public class LoginGenerator {
         String n = deAccent(nom.substring(0,3).toUpperCase());
         String login = p+n ;
         if (loginService.loginExists(login)) {
-            login = login + "1" ;
+            int nombreRepetition = loginService.findAllLoginsStartingWith(login).size();
+            login = login + nombreRepetition ;
+
         }
         loginService.addLogin(login);
         return login;
